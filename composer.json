@@ -1,0 +1,19 @@
+{
+  "name": "vendor_name/oremessenger2",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "lrlopez",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "": "src/"
+    }
+  }
+}

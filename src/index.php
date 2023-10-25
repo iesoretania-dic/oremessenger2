@@ -1,3 +1,27 @@
+<?php
+    session_start();
+    if (isset($_POST['login'])) {
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;port=33060;dbname=oremessenger',
+                'root', 'ejemplo_pass');
+
+            $username = $_POST['username'];
+            $query = $db->query("SELECT * FROM person WHERE username='$username'");
+            $user = $query->fetch(PDO::FETCH_ASSOC);
+            if ($user) {
+                if ($user['password'] === $_POST['pass']) {
+                    $_SESSION['username'] = $_POST['username'];
+                    header('Location: mensajes.php');
+                    die();
+                } else {
+                    $error = 'Invalid username/password';
+                }
+            }
+        } catch (PDOException $e) {
+            $error = 'Database error: ' . $e->getMessage();
+        }
+    }
+?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -6,6 +30,11 @@
 </head>
 <body>
     <h1>Login</h1>
+    <?php
+    if (!empty($error)) {
+        echo "<h2>" . $error . "</h2>";
+    }
+    ?>
     <form method="post">
         <input type="text" name="username" placeholder="Enter your username" />
         <input type="password" name="pass" placeholder="Enter password" />

@@ -19,6 +19,13 @@ if (!$user) {
     header('Location: index.php');
     die();
 }
+
+// Process form
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header('Location: index.php');
+    die();
+}
 ?>
 <!doctype html>
 <html lang="es">
@@ -29,6 +36,8 @@ if (!$user) {
         table {
             border: 1px solid black;
             border-collapse: collapse;
+            margin-top: 1em;
+            margin-bottom: 1em;
         }
 
         td, th {
@@ -62,5 +71,8 @@ if (!$user) {
         ?>
         </tbody>
     </table>
+    <form method="post">
+        <button type="submit" name="logout">Log out</button>
+    </form>
 </body>
 </html>

@@ -26,6 +26,14 @@ if (isset($_POST['logout'])) {
     header('Location: index.php');
     die();
 }
+if (isset($_POST['delete'])) {
+    $query = $db->prepare('DELETE FROM message WHERE id=:id');
+    $query->bindValue(':id', $_POST['delete'], PDO::PARAM_INT);
+    $query->execute();
+    header('Location: messages.php');
+    die();
+}
+//var_dump($_POST);
 ?>
 <!doctype html>
 <html lang="es">
@@ -47,31 +55,37 @@ if (isset($_POST['logout'])) {
 </head>
 <body>
     <h1>Browse messages - <?= htmlentities($user['fullname']) ?></h1>
-    <table>
-        <thead>
-        <tr>
-            <th>Username</th>
-            <th>Message body</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-
-        $messages = $db->prepare('SELECT * FROM message WHERE username=:user');
-        $messages->bindValue(':user', $username);
-        $messages->setFetchMode(PDO::FETCH_ASSOC);
-        $messages->execute();
-
-        foreach ($messages as $message) {
-            echo "<tr>";
-            echo "<td>" . htmlentities($message['username']) . "</td>";
-            echo "<td>" . htmlentities($message['body']) . "</td>";
-            echo "</tr>";
-        }
-        ?>
-        </tbody>
-    </table>
     <form method="post">
+        <table>
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Message body</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+
+            $messages = $db->prepare('SELECT * FROM message WHERE username=:user');
+            $messages->bindValue(':user', $username);
+            $messages->setFetchMode(PDO::FETCH_ASSOC);
+            $messages->execute();
+
+            foreach ($messages as $message) {
+                echo "<tr>";
+                echo "<td>" . htmlentities($message['username']) . "</td>";
+                echo "<td>" . htmlentities($message['body']) . "</td>";
+                echo "<td>";
+                echo '<button type="submit" name="delete" value="' .
+                    $message['id'] .
+                    '">Delete</button>';
+                echo "</td>";
+                echo "</tr>";
+            }
+            ?>
+            </tbody>
+        </table>
         <button type="submit" name="logout">Log out</button>
     </form>
 </body>

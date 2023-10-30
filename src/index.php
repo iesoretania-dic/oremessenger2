@@ -6,7 +6,11 @@
                 'root', 'ejemplo_pass');
 
             $username = $_POST['username'];
-            $query = $db->query("SELECT * FROM person WHERE username='$username'");
+
+            $query = $db->prepare('SELECT * FROM person WHERE username=:user');
+            $query->bindValue(':user', $username, PDO::PARAM_STR);
+            $query->execute();
+            
             $user = $query->fetch(PDO::FETCH_ASSOC);
             if ($user) {
                 if ($user['password'] === $_POST['pass']) {
@@ -16,6 +20,8 @@
                 } else {
                     $error = 'Invalid username/password';
                 }
+            } else {
+                $error = 'Invalid username/password';
             }
         } catch (PDOException $e) {
             $error = 'Database error: ' . $e->getMessage();

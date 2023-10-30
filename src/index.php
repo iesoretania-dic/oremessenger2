@@ -15,7 +15,7 @@
             if ($user) {
                 if ($user['password'] === $_POST['pass']) {
                     $_SESSION['username'] = $_POST['username'];
-                    header('Location: mensajes.php');
+                    header('Location: messages.php');
                     die();
                 } else {
                     $error = 'Invalid username/password';

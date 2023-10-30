@@ -13,6 +13,6 @@ $username = $_SESSION['username'];
     <title>Browse messages</title>
 </head>
 <body>
-    <h1>Browse messages - <?= $username ?></h1>
+    <h1>Browse messages - <?= htmlentities($username) ?></h1>
 </body>
 </html>

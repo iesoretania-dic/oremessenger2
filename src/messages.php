@@ -27,8 +27,9 @@ if (isset($_POST['logout'])) {
     die();
 }
 if (isset($_POST['delete'])) {
-    $query = $db->prepare('DELETE FROM message WHERE id=:id');
+    $query = $db->prepare('DELETE FROM message WHERE id=:id AND username=:user');
     $query->bindValue(':id', $_POST['delete'], PDO::PARAM_INT);
+    $query->bindValue(':user', $username);
     $query->execute();
     header('Location: messages.php');
     die();

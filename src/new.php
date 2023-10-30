@@ -40,6 +40,23 @@ if (isset($_POST['new'])) {
     <title>New message</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="fa fa-message"></i> OreMessenger</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" aria-current="page" href="messages.php"><i class="fa fa-list"></i> Messages</a>
+                <span class="navbar-text">
+                        Connected as <?= $user['fullname'] ?>
+                    </span>
+                <a class="nav-link" href="logout.php"><i class="fa fa-power-off"></i> Log out</a>
+            </div>
+        </div>
+    </div>
+</nav>
     <div class="container">
         <h1>New message - <?= htmlentities($user['fullname']) ?></h1>
         <form method="post">

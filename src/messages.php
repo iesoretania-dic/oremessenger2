@@ -1,4 +1,7 @@
 <?php
+require_once 'config.php';
+global $db;
+
 session_start();
 if (!isset($_SESSION['username'])) {
     header('Location: index.php');
@@ -6,8 +9,6 @@ if (!isset($_SESSION['username'])) {
 }
 $username = $_SESSION['username'];
 
-$db = new PDO('mysql:host=127.0.0.1;port=33060;dbname=oremessenger',
-    'root', 'ejemplo_pass');
 $query = $db->prepare('SELECT * FROM person WHERE username=:user');
 $query->bindValue(':user', $username);
 $query->execute();

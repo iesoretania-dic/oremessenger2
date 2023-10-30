@@ -1,10 +1,10 @@
 <?php
+    require_once 'config.php';
+    global $db;
+
     session_start();
     if (isset($_POST['login'])) {
         try {
-            $db = new PDO('mysql:host=127.0.0.1;port=33060;dbname=oremessenger',
-                'root', 'ejemplo_pass');
-
             $username = $_POST['username'];
 
             $query = $db->prepare('SELECT * FROM person WHERE username=:user');

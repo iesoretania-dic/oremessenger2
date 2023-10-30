@@ -76,7 +76,7 @@ if (isset($_POST['delete'])) {
             foreach ($messages as $message) {
                 echo "<tr>";
                 echo "<td>" . htmlentities($message['username']) . "</td>";
-                echo "<td>" . htmlentities($message['body']) . "</td>";
+                echo "<td>" . nl2br(htmlentities($message['body'])) . "</td>";
                 echo "<td>";
                 echo '<button type="submit" name="delete" value="' .
                     $message['id'] .
@@ -88,6 +88,7 @@ if (isset($_POST['delete'])) {
             </tbody>
         </table>
         <button type="submit" name="logout">Log out</button>
+        <a href="new.php">New message</a>
     </form>
 </body>
 </html>

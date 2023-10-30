@@ -39,56 +39,48 @@ if (isset($_POST['delete'])) {
 <!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Browse messages</title>
-    <style>
-        table {
-            border: 1px solid black;
-            border-collapse: collapse;
-            margin-top: 1em;
-            margin-bottom: 1em;
-        }
-
-        td, th {
-            border: 1px solid black;
-        }
-    </style>
 </head>
 <body>
-    <h1>Browse messages - <?= htmlentities($user['fullname']) ?></h1>
-    <form method="post">
-        <table>
-            <thead>
-            <tr>
-                <th>Username</th>
-                <th>Message body</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
+    <div class="container">
+        <h1>Browse messages - <?= htmlentities($user['fullname']) ?></h1>
+        <form method="post">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Message body</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
 
-            $messages = $db->prepare('SELECT * FROM message WHERE username=:user');
-            $messages->bindValue(':user', $username);
-            $messages->setFetchMode(PDO::FETCH_ASSOC);
-            $messages->execute();
+                $messages = $db->prepare('SELECT * FROM message WHERE username=:user');
+                $messages->bindValue(':user', $username);
+                $messages->setFetchMode(PDO::FETCH_ASSOC);
+                $messages->execute();
 
-            foreach ($messages as $message) {
-                echo "<tr>";
-                echo "<td>" . htmlentities($message['username']) . "</td>";
-                echo "<td>" . nl2br(htmlentities($message['body'])) . "</td>";
-                echo "<td>";
-                echo '<button type="submit" name="delete" value="' .
-                    $message['id'] .
-                    '">Delete</button>';
-                echo "</td>";
-                echo "</tr>";
-            }
-            ?>
-            </tbody>
-        </table>
-        <button type="submit" name="logout">Log out</button>
-        <a href="new.php">New message</a>
-    </form>
+                foreach ($messages as $message) {
+                    echo "<tr>";
+                    echo "<td>" . htmlentities($message['username']) . "</td>";
+                    echo "<td>" . nl2br(htmlentities($message['body'])) . "</td>";
+                    echo "<td>";
+                    echo '<button type="submit" name="delete" class="btn btn-danger" value="' .
+                        $message['id'] .
+                        '">Delete</button>';
+                    echo "</td>";
+                    echo "</tr>";
+                }
+                ?>
+                </tbody>
+            </table>
+            <a href="new.php" class="btn btn-success">New message</a>
+            <button type="submit" name="logout" class="btn btn-info">Log out</button>
+        </form>
+    </div>
 </body>
 </html>

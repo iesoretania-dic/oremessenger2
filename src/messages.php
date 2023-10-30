@@ -42,6 +42,7 @@ if (isset($_POST['delete'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Browse messages</title>
 </head>
 <body>
@@ -66,20 +67,20 @@ if (isset($_POST['delete'])) {
 
                 foreach ($messages as $message) {
                     echo "<tr>";
-                    echo "<td>" . htmlentities($message['username']) . "</td>";
+                    echo "<td><i class='fa fa-user'></i> " . htmlentities($message['username']) . "</td>";
                     echo "<td>" . nl2br(htmlentities($message['body'])) . "</td>";
                     echo "<td>";
                     echo '<button type="submit" name="delete" class="btn btn-danger" value="' .
                         $message['id'] .
-                        '">Delete</button>';
+                        '"><i class="fa fa-trash"></i> Delete</button>';
                     echo "</td>";
                     echo "</tr>";
                 }
                 ?>
                 </tbody>
             </table>
-            <a href="new.php" class="btn btn-success">New message</a>
-            <button type="submit" name="logout" class="btn btn-info">Log out</button>
+            <a href="new.php" class="btn btn-success"><i class="fa fa-plus"></i> New message</a>
+            <button type="submit" name="logout" class="btn btn-info"><i class="fa fa-power-off"></i> Log out</button>
         </form>
     </div>
 </body>
